@@ -8,15 +8,17 @@
 let config = {
     parent: 'myGame',
     type: Phaser.AUTO,
-    height: 640,
+    // 3:2 Aspect ratio
+    // 32 x 32 tiles (30 x 20 tiles)
     width: 960,
+    height: 640,
     scale: {
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
     physics: {
         default: 'arcade',
         arcade: {
-            // debug: true,
+            debug: true,
             gravity: {
                 x: 0,
                 y: 0
@@ -30,10 +32,11 @@ let config = {
 // define game
 let game = new Phaser.Game(config);
 const textSpacer = 64;
+const tileSize = 32; // Size in pixels
 let centerX = game.config.width/2;
 let centerY = game.config.height/2;
 let gameWidth = game.config.width;
 let gameHeight = game.config.height;
 let cursors;
-let keySPACE, keyLEFT, keyRIGHT, key1, key2, key3, keyESC;
+let keySPACE,  keyESC, keyLEFT, keyRIGHT, keyUP, keyDOWN, key1, key2, key3;
 let bgMusicPlaying = false;

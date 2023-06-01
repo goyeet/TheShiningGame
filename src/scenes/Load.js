@@ -23,9 +23,16 @@ class Load extends Phaser.Scene {
         
         // load graphics assets
         // EX. this.load.image('bubble', 'bubble.png');
-        
-        
 
+        // load tilesets and tilemaps
+        // Game 1
+
+        // Game 2
+
+        // Game 3
+        // this.load.image('tileset3', 'tilesets/Game3Tileset.png')
+        // this.load.tilemapTiledJSON('game3JSON', 'tilemaps/Game3.json')
+        
         // load audio assets
         // EX. this.load.audio('select', 'audio/sfx/mixkit-page-back-chime-1108.wav');
     }

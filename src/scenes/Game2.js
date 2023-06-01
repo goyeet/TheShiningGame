@@ -31,7 +31,7 @@ class Game2 extends Phaser.Scene {
         }
 
         // Title Text
-        this.add.text(centerX, centerY - textSpacer, 'Game 2', titleConfig).setOrigin(0.5);
+        this.add.text(centerX, centerY, 'Game 2', titleConfig).setOrigin(0.5);
 
         //////////////////////////////////////////////////////////
         
@@ -41,13 +41,14 @@ class Game2 extends Phaser.Scene {
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
     }
 
     
 
     update() {
         // Go to menu scene
-        if (Phaser.Input.Keyboard.JustDown(keyLEFT)) {
+        if (Phaser.Input.Keyboard.JustDown(keyESC)) {
             this.scene.start('menuScene');
         }
     }
