@@ -35,12 +35,11 @@ class Credits extends Phaser.Scene {
 
         // set up cursor keys
         cursors = this.input.keyboard.createCursorKeys();
-        keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+        keyESC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
     }
 
     update() {
-        // check for SPACE bar input
-        if (Phaser.Input.Keyboard.JustDown(keyLEFT)) {
+        if (Phaser.Input.Keyboard.JustDown(keyESC)) {
             this.scene.start('menuScene');    
         }
     }

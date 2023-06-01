@@ -18,7 +18,7 @@ class Menu extends Phaser.Scene {
         }
 
         // Title Text
-        this.add.text(centerX, centerY, 'The Shining Game\n\n[1] for Game 1\n[2] for Game 2\n[3] for Game 3', titleConfig).setOrigin(0.5);
+        this.add.text(centerX, centerY, 'The Shining Game\n\n[1] for Game 1\n[2] for Game 2\n[3] for Game 3\n[c] Credits', titleConfig).setOrigin(0.5);
 
         // set up cursor keys
         cursors = this.input.keyboard.createCursorKeys();
@@ -27,6 +27,7 @@ class Menu extends Phaser.Scene {
         key1 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);
         key2 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);
         key3 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE);
+        keyC = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
     }
 
     update() {
@@ -40,7 +41,7 @@ class Menu extends Phaser.Scene {
         }
 
         // Go to credits scene
-        if (Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
+        else if (Phaser.Input.Keyboard.JustDown(keyC)) {
             this.scene.start('creditsScene');
         }
     }

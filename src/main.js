@@ -38,5 +38,5 @@ let centerY = game.config.height/2;
 let gameWidth = game.config.width;
 let gameHeight = game.config.height;
 let cursors;
-let keySPACE,  keyESC, keyLEFT, keyRIGHT, keyUP, keyDOWN, key1, key2, key3;
+let keySPACE, keyESC, keyLEFT, keyRIGHT, keyUP, keyDOWN, key1, key2, key3, keyC;
 let bgMusicPlaying = false;
