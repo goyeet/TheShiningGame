@@ -23,7 +23,7 @@ let config = {
             }
         }
     },
-    scene: [ Load, Menu, Game1, /* Game2, Game3, */ Credits ],
+    scene: [ Load, Menu, Game1, Game2, Game3, Credits ],
     fps: { forceSetTimeOut: true, target: 60 } // Necessary to limit fps on devices with a refresh rate > 60Hz
 }
 
@@ -35,5 +35,5 @@ let centerY = game.config.height/2;
 let gameWidth = game.config.width;
 let gameHeight = game.config.height;
 let cursors;
-let keySPACE, keyLEFT, keyRIGHT;
+let keySPACE, keyLEFT, keyRIGHT, key1, key2, key3, keyESC;
 let bgMusicPlaying = false;

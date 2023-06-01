@@ -9,7 +9,7 @@ class Credits extends Phaser.Scene {
 
         // add title screen text
         let creditsConfig = {
-            fontFamily: 'Oswald',
+            fontFamily: 'Times New Roman',
             fontSize: '48px',
             color: '#FFFFFF',
             align: 'center',
@@ -18,7 +18,7 @@ class Credits extends Phaser.Scene {
         }
 
         let smallTextConfig = {
-            fontFamily: 'Oswald',
+            fontFamily: 'Times New Roman',
             fontSize: '24px',
             color: '#FFFFFF',
             align: 'center',
@@ -27,12 +27,11 @@ class Credits extends Phaser.Scene {
             fixedWidth: 0
         }
 
-        let creditsText = this.add.text(centerX, centerY - textSpacer, 'Credits', creditsConfig).setOrigin(0.5);
-        let credits = this.add.text(centerX, centerY + textSpacer, 'Programmers: Gordon Yee and Emily Gavilanes\nArtist: Gordon Yee and Emily Gavilanes\nDesigner: Gordon Yee and Emily Gavilanes\nSFX: \nMusic: ', smallTextConfig).setOrigin(0.5);
+        let creditsHeader = this.add.text(centerX, centerY - textSpacer*2, 'Credits', creditsConfig).setOrigin(0.5);
+        let credits = this.add.text(centerX, centerY, 'Programmers: Gordon Yee and Emily Gavilanes\nArtists: Gordon Yee and Emily Gavilanes\nDesigners: Gordon Yee and Emily Gavilanes\nSFX: \nMusic: ', smallTextConfig).setOrigin(0.5);
        
-        creditsConfig.fontSize = '36px';
-        this.leftArrowUI = this.add.sprite(textSpacer * 1.5, centerY).play('leftArrow').setScale(1.75);
-        this.titleText = this.add.text(textSpacer * 1.5, centerY + textSpacer, 'Menu', creditsConfig).setOrigin(0.5);
+        // creditsConfig.fontSize = '36px';
+        // this.titleText = this.add.text(textSpacer * 1.5, centerY + textSpacer, 'Menu', creditsConfig).setOrigin(0.5);
 
         // set up cursor keys
         cursors = this.input.keyboard.createCursorKeys();
@@ -42,7 +41,6 @@ class Credits extends Phaser.Scene {
     update() {
         // check for SPACE bar input
         if (Phaser.Input.Keyboard.JustDown(keyLEFT)) {
-            this.sound.play('select', {volume: 0.8});
             this.scene.start('menuScene');    
         }
     }

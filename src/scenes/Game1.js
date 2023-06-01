@@ -22,7 +22,7 @@ class Game1 extends Phaser.Scene {
 
         // add title screen text
         let titleConfig = {
-            fontFamily: 'Oswald',
+            fontFamily: 'Times New Roman',
             fontSize: '48px',
             color: '#FFFFFF',
             align: 'right',
@@ -31,7 +31,7 @@ class Game1 extends Phaser.Scene {
         }
 
         // Title Text
-        this.add.text(centerX, centerY - textSpacer, 'Game1', titleConfig).setOrigin(0.5);
+        this.add.text(centerX, centerY - textSpacer, 'Game 1', titleConfig).setOrigin(0.5);
 
         //////////////////////////////////////////////////////////
         
@@ -46,7 +46,10 @@ class Game1 extends Phaser.Scene {
     
 
     update() {
-       
+        // Go to menu scene
+        if (Phaser.Input.Keyboard.JustDown(keyLEFT)) {
+            this.scene.start('menuScene');
+        }
     }
     
 }
