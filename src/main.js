@@ -9,7 +9,7 @@ let config = {
     parent: 'myGame',
     type: Phaser.AUTO,
     // 3:2 Aspect ratio
-    // 32 x 32 tiles (30 x 20 tiles)
+    // 32px x 32px tiles (30 x 20 tiles)
     width: 960,
     height: 640,
     scale: {

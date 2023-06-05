@@ -18,7 +18,7 @@ class Menu extends Phaser.Scene {
         }
 
         // Title Text
-        this.add.text(centerX, centerY, 'The Shining Game\n\n[1] for Game 1\n[2] for Game 2\n[3] for Game 3\n[c] Credits', titleConfig).setOrigin(0.5);
+        this.add.text(centerX, centerY, 'The Shining Game\n\n[1] for Game 1\n[2] for Game 2\n[3] for Game 3\n[C] Credits', titleConfig).setOrigin(0.5);
 
         // set up cursor keys
         cursors = this.input.keyboard.createCursorKeys();
