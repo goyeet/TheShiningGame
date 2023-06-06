@@ -9,7 +9,8 @@ class Game1 extends Phaser.Scene {
         this.load.image('tileset1Image', 'tilesets/HallwaysBackGround.png');
         this.load.tilemapTiledJSON('tilemap1JSON', 'tilemaps/Game1.json');
 
-        this.load.image('Danny', 'characters/blackBox.png'); // Placeholder sprite
+        this.load.atlas('trikeDanny', 'characters/TricycleDanny.png', 'characters/TricycleDanny.json');
+
         this.load.image('BlackOverlay', 'BlackOverlay.png'); // Placeholder sprite
         this.load.image('Twins', 'characters/twins.png'); // Placeholder sprite
     }
@@ -37,8 +38,21 @@ class Game1 extends Phaser.Scene {
         const terrainLayer = this.map.createLayer('terrainLayer', tileset, 0, 0);
         terrainLayer.setCollisionByProperty({ collides: true });
 
+        // define animations
+        this.anims.create({
+            key: 'pedal',
+            frames: this.anims.generateFrameNames('trikeDanny', {
+                prefix: 'TricycleDanny ',
+                start: 0,
+                end: 6,
+                suffix: '.aseprite'
+            }),
+            frameRate: 15,
+            repeat: -1      // loop animation
+        });
+
         // Instantiate Danny
-        this.Danny = new Player(this, this.map.widthInPixels/2, this.map.heightInPixels - tileSize*2, 'Danny').setScale(0.75);
+        this.Danny = new TrikeDanny(this, this.map.widthInPixels/2, this.map.heightInPixels - tileSize*2, 'trikeDanny');
 
         // Add collider between Danny and tilemap
         this.physics.add.collider(this.Danny, terrainLayer);
@@ -159,6 +173,7 @@ class Game1 extends Phaser.Scene {
     // Paramter: success tracks if player succeeded or failed the game (victory vs. failure)
     gameOver(success) {
         this.gameOverFlag = true;
+        this.Danny.setVelocity(0,0).anims.pause(); // stop movement and pause animation
         console.log('GAME OVER');
 
         // if success is true, go to victory scene
