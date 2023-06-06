@@ -33,11 +33,11 @@ class Menu extends Phaser.Scene {
     update() {
         // Start game
         if (Phaser.Input.Keyboard.JustDown(key1)) {
-            this.scene.start('game1');
+            this.scene.start('game1Instr');
         } else if (Phaser.Input.Keyboard.JustDown(key2)) {
-            this.scene.start('game2');
+            this.scene.start('game2Instr');
         } else if (Phaser.Input.Keyboard.JustDown(key3)) {
-            this.scene.start('game3');
+            this.scene.start('game3Instr');
         }
 
         // Go to credits scene

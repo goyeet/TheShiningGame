@@ -1,5 +1,7 @@
 // Name: Gordon Yee and Emily Gavilanes
 // Title: The Shining Game
+// Phaser Components Used:
+// - physics systems, particle effects, text objects, timers, tilemaps
 
 
 'use strict';
@@ -25,7 +27,7 @@ let config = {
             }
         }
     },
-    scene: [ Load, Menu, Game1, Game2, Game3, Credits ],
+    scene: [ Load, Menu, Game1Instructions, Game1, Game2Instructions, Game2, Game3Instructions, Game3, Credits ],
     fps: { forceSetTimeOut: true, target: 60 } // Necessary to limit fps on devices with a refresh rate > 60Hz
 }
 

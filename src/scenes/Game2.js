@@ -6,10 +6,10 @@ class Game2 extends Phaser.Scene {
     preload() {
         this.load.path = './assets/';
         
-        /* this.load.image('tileset2Image', 'tilesets/PLACEHOLDER.png');
-        this.load.tilemapTiledJSON('tilemap2JSON', 'tilemaps/Game2.json');
+        // this.load.image('tileset2Image', 'tilesets/PLACEHOLDER.png');
+        // this.load.tilemapTiledJSON('tilemap2JSON', 'tilemaps/Game2.json');
 
-        this.load.image('Jack', 'characters/blackBox.png'); // Placeholder sprite */
+        this.load.image('Jack', 'characters/blackBox.png'); // Placeholder sprite
 
     }
 
@@ -23,23 +23,23 @@ class Game2 extends Phaser.Scene {
         this.cameras.main.setZoom(2);
 
         // Tilemap setup
-        /* const map = this.add.tilemap('tilemap2JSON');
-        const tileset = map.addTilesetImage('PLACEHOLDERTILESETNAME', 'tileset2Image');
-        const bgLayer = map.createLayer('backgroundLayer', tileset, 0, 0);
-        const terrainLayer = map.createLayer('terrainLayer', tileset, 0, 0);
-        terrainLayer.setCollisionByProperty({ collides: true });
+        // const map = this.add.tilemap('tilemap2JSON');
+        // const tileset = map.addTilesetImage('PLACEHOLDERTILESETNAME', 'tileset2Image');
+        // const bgLayer = map.createLayer('backgroundLayer', tileset, 0, 0);
+        // const terrainLayer = map.createLayer('terrainLayer', tileset, 0, 0);
+        // terrainLayer.setCollisionByProperty({ collides: true });
         
         // Instantiate Jack
         this.Jack = new Player(this, map.widthInPixels/2, map.heightInPixels/2, 'Jack').setScale(0.5);
 
         // Add collider between Jack and tilemap
-        this.physics.add.collider(this.Jack, terrainLayer);
+        // this.physics.add.collider(this.Jack, terrainLayer);
 
         // Have camera follow Jack
         this.cameras.main.startFollow(this.Jack, true, 0.25, 0.25);
 
         // Set world bounds to map dimensions
-        this.physics.world.bounds.setTo(0, 0, map.widthInPixels, map.heightInPixels); */
+        // this.physics.world.bounds.setTo(0, 0, map.widthInPixels, map.heightInPixels);
 
         // start bg music
         /* this.bgMusic = this.sound.add('bgMusic', { volume: 0.65, loop: true });
