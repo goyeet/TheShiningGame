@@ -38,7 +38,7 @@ class Game1 extends Phaser.Scene {
         const terrainLayer = this.map.createLayer('terrainLayer', tileset, 0, 0);
         terrainLayer.setCollisionByProperty({ collides: true });
 
-        // define animations
+        // define animation
         this.anims.create({
             key: 'pedal',
             frames: this.anims.generateFrameNames('trikeDanny', {
@@ -48,7 +48,7 @@ class Game1 extends Phaser.Scene {
                 suffix: '.aseprite'
             }),
             frameRate: 15,
-            repeat: -1      // loop animation
+            repeat: -1
         });
 
         // Instantiate Danny

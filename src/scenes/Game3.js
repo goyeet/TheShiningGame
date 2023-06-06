@@ -10,7 +10,7 @@ class Game3 extends Phaser.Scene {
         this.load.tilemapTiledJSON('tilemap3JSON', 'tilemaps/Game3.json');
 
         this.load.image('Danny', 'characters/blackBox.png'); // Placeholder sprite
-
+        this.load.image('snowflake', 'snowflake.png');
     }
 
     create() {
@@ -31,6 +31,20 @@ class Game3 extends Phaser.Scene {
         const bgLayer = map.createLayer('backgroundLayer', tileset, 0, 0);
         const terrainLayer = map.createLayer('terrainLayer', tileset, 0, 0);
         terrainLayer.setCollisionByProperty({ collides: true });
+
+        // create line on top of screen for particles source
+        let line = new Phaser.Geom.Line(0, 0, gameWidth, 0);
+
+        this.particleEmitter = this.add.particles(100, 300, 'snowflake', {
+            gravityY: -10,
+            lifespan: 15000,
+            speed: { min: 100, max: 150 },
+            alpha: { start: 0.75, end: 0.1 },
+            scale: { start: 1, end: 0 },
+            emitZone: { type: 'random', source: line, quantity: 15 },
+            blendMode: 'ADD',
+        });
+
         
         // Instantiate Danny
         this.Danny = new Player(this, map.widthInPixels/2, map.heightInPixels/2, 'Danny').setScale(0.5);
