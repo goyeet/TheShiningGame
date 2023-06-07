@@ -34,7 +34,7 @@ class Game1 extends Phaser.Scene {
         this.cameras.main.setZoom(2); // TEMP DISABLED FOR DEBUGGING
 
         // Create "Black Overlay"
-        // this.overlay = this.add.tileSprite(0, 0, 960, 640, 'BlackOverlay').setOrigin(0, 0).setDepth(100).setScrollFactor(0); // TEMP DISABLED FOR DEBUGGING
+        this.overlay = this.add.tileSprite(0, 0, 960, 640, 'BlackOverlay').setOrigin(0, 0).setDepth(100).setScrollFactor(0); // TEMP DISABLED FOR DEBUGGING
 
         // Tilemap setup
         this.map = this.add.tilemap('tilemap1JSON');
@@ -89,13 +89,10 @@ class Game1 extends Phaser.Scene {
         this.lockSpawns = true;
         this.spawnTwins();
 
-        // EMILY's TODO: Looping Background Music
-        // CODE HERE
+        // Looping Background Music
         this.bgMusic = this.sound.add('bgMusic', { volume: 0.65, loop: true });
-        if (bgMusicPlaying === false) {
-            this.bgMusic.play();
-            bgMusicPlaying = true;
-        } 
+        this.bgMusic.play();
+        
 
         // set up cursor keys
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -126,21 +123,21 @@ class Game1 extends Phaser.Scene {
             const points = this.map.findObject('objectLayer', obj => {
                 // if player reaches destination
                 if (obj.name.includes('273')) {
-                    if (Phaser.Math.Distance.Between(this.Danny.x, this.Danny.y, obj.x, obj.y) <= tileSize * 2) {
+                    if (Phaser.Math.Distance.Between(this.Danny.x, this.Danny.y, obj.x, obj.y) <= tileSize * 1) {
                         console.log('273')
                         this.gameOver(true);
                     }
                 }
                 // if player runs into elevator
                 else if (obj.name.includes('Elevator')) {
-                    if (Phaser.Math.Distance.Between(this.Danny.x, this.Danny.y, obj.x, obj.y) <= tileSize * 2) {
+                    if (Phaser.Math.Distance.Between(this.Danny.x, this.Danny.y, obj.x, obj.y) <= tileSize * 0.5) {
                         console.log('Elevator')
                         this.gameOver(false);
                     }
                 }
                 // if player runs into twins
                 else {
-                    if (Phaser.Math.Distance.Between(this.Danny.x, this.Danny.y, obj.x, obj.y) <= tileSize * 2) {
+                    if (Phaser.Math.Distance.Between(this.Danny.x, this.Danny.y, obj.x, obj.y) <= tileSize * 1.5) {
                         for (const Twins of this.TwinsGroup.getChildren()) {
                             if (Twins.x == obj.x && Twins.y == obj.y) {
                                 console.log('encountered twins')
@@ -155,8 +152,14 @@ class Game1 extends Phaser.Scene {
         }
         
         // Go to menu scene
-        if (Phaser.Input.Keyboard.JustDown(keyESC)) {
+        if (this.gameOverFlag && Phaser.Input.Keyboard.JustDown(keyESC)) {
             this.scene.start('menuScene');
+        }
+
+        // Restart Scene
+        if (this.gameOverFlag && Phaser.Input.Keyboard.JustDown(keySPACE)) {
+            this.game.sound.stopAll();
+            this.scene.restart();
         }
     }
 
@@ -167,37 +170,46 @@ class Game1 extends Phaser.Scene {
             this.spawnpoint = Phaser.Math.Between(0, 7);
             this.twinsSpawnX = this.twinSpawns[this.spawnpoint][0];
             this.twinsSpawnY = this.twinSpawns[this.spawnpoint][1];
+
+            if (Phaser.Math.Distance.Between(this.Danny.x, this.Danny.y, this.twinsSpawnY, this.twinsSpawnX) <= tileSize * 5) {
+                this.spawnTwins();
+            }
+
             this.Twins = this.add.sprite(this.twinsSpawnX, this.twinsSpawnY, 'Twins'); // create twins
             this.TwinsGroup.add(this.Twins); // add twins to group
             this.lockSpawns = false; // unlock spawns
         }
     }
 
-    // EMILY'S TODO: Game Over Logic
-    // Paramter: success tracks if player succeeded or failed the game (victory vs. failure)
+    // Game Over Logic
+    // Parameter: success tracks if player succeeded or failed the game (victory vs. failure)
     gameOver(success) {
         this.gameOverFlag = true;
         this.Danny.setVelocity(0,0).anims.pause(); // stop movement and pause animation
         console.log('GAME OVER');
-
+        let smallTextConfig = {
+            fontFamily: 'Times New Roman',
+            fontSize: '18px',
+            color: '#FFFFFF',
+            align: 'center',
+            padding: 5,
+            lineSpacing: 5,
+            fixedWidth: 0
+        }
+        this.add.text(centerX, centerY + textSpacer, '[SPACE] to Restart\n[ESC] for Main Menu', smallTextConfig).setOrigin(0.5).setDepth(101);
         // if success is true, go to victory scene
-        // CODE HERE
         if (success) {
             this.bgMusic.stop();
-            this.sound.play('successbgMusic');
-
-            const successImage = this.add.image(0, 0, 'success').setOrigin(0.5).setScale(0.5);
-            const centerX = this.cameras.main.width / 2;
-            const centerY = this.cameras.main.height / 2;
-            successImage.setPosition(centerX, centerY);
+            this.sound.play('successbgMusic', { volume: 0.65, loop: true });
+            const successImage = this.add.image(0, 0, 'success').setOrigin(0.5).setScale(0.5).setDepth(100);
+            successImage.setPosition(this.Danny.x, this.Danny.y);
         } else {
             this.bgMusic.stop();
-            this.sound.play('ggbgMusic');
-            const ggImage = this.add.image(0, 0, 'gg').setOrigin(0.5).setScale(0.5);
-            const centerX = this.cameras.main.width / 2;
-            const centerY = this.cameras.main.height / 2;
-            ggImage.setPosition(centerX, centerY);
+            this.sound.play('ggbgMusic', { volume: 0.65, loop: true });
+            const ggImage = this.add.image(0, 0, 'gg').setOrigin(0.5).setScale(0.5).setDepth(100);
+            ggImage.setPosition(this.Danny.x, this.Danny.y);
         }
+
     }
 
 }
