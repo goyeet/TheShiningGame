@@ -8,11 +8,15 @@ class Game1 extends Phaser.Scene {
         
         this.load.image('tileset1Image', 'tilesets/HallwaysBackGround.png');
         this.load.tilemapTiledJSON('tilemap1JSON', 'tilemaps/Game1.json');
-
+        this.load.image('gg', 'game_over.png');
+        this.load.image('success', 'win.png');
         this.load.atlas('trikeDanny', 'characters/TricycleDanny.png', 'characters/TricycleDanny.json');
 
         this.load.image('BlackOverlay', 'BlackOverlay.png'); // Placeholder sprite
         this.load.image('Twins', 'characters/twins.png'); // Placeholder sprite
+        this.load.audio('bgMusic', 'game1_bgm.mp3');
+        this.load.audio('ggbgMusic', 'game_over_bgm.mp3');
+        this.load.audio('successbgMusic', 'success_bgm.mp3');
     }
 
     create() {
@@ -87,11 +91,11 @@ class Game1 extends Phaser.Scene {
 
         // EMILY's TODO: Looping Background Music
         // CODE HERE
-        /* this.bgMusic = this.sound.add('bgMusic', { volume: 0.65, loop: true });
+        this.bgMusic = this.sound.add('bgMusic', { volume: 0.65, loop: true });
         if (bgMusicPlaying === false) {
             this.bgMusic.play();
             bgMusicPlaying = true;
-        } */
+        } 
 
         // set up cursor keys
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -178,9 +182,22 @@ class Game1 extends Phaser.Scene {
 
         // if success is true, go to victory scene
         // CODE HERE
-        
-        // else success is false and go to game over scene
-        // CODE HERE
+        if (success) {
+            this.bgMusic.stop();
+            this.sound.play('successbgMusic');
+
+            const successImage = this.add.image(0, 0, 'success').setOrigin(0.5).setScale(0.5);
+            const centerX = this.cameras.main.width / 2;
+            const centerY = this.cameras.main.height / 2;
+            successImage.setPosition(centerX, centerY);
+        } else {
+            this.bgMusic.stop();
+            this.sound.play('ggbgMusic');
+            const ggImage = this.add.image(0, 0, 'gg').setOrigin(0.5).setScale(0.5);
+            const centerX = this.cameras.main.width / 2;
+            const centerY = this.cameras.main.height / 2;
+            ggImage.setPosition(centerX, centerY);
+        }
     }
 
 }
