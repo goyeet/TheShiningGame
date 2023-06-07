@@ -27,7 +27,7 @@ class Game1Instructions extends Phaser.Scene {
         }
 
         let gameTitle = this.add.text(centerX, centerY - textSpacer*2, 'Hallway Exploration', BigTextConfig).setOrigin(0.5);
-        let description = this.add.text(centerX, centerY, 'Little Danny has been told to avoid Room 237 at all costs.\nHowever, his curious young mind gets the better of him.\nFind Room 237 and avoid anything that lies in your path...\n\n[SPACE] to Start\n[ESC] for Main Menu', smallTextConfig).setOrigin(0.5);
+        let description = this.add.text(centerX, centerY, 'Little Danny has been told to avoid Room 237 at all costs.\nHowever, his curious young mind gets the better of him.\nFind Room 237 and avoid anything that lies in your path...\n\nUse the arrow keys to move.\n\n[SPACE] to Start\n[ESC] for Main Menu', smallTextConfig).setOrigin(0.5);
 
         // set up cursor keys
         cursors = this.input.keyboard.createCursorKeys();
