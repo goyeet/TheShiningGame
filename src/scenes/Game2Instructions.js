@@ -27,7 +27,7 @@ class Game2Instructions extends Phaser.Scene {
         }
 
         let gameTitle = this.add.text(centerX, centerY - textSpacer*2, 'Ballroom Dodge', BigTextConfig).setOrigin(0.5);
-        let description = this.add.text(centerX, centerY, 'Game Description\n[SPACE] to Start\n[ESC] for Main Menu', smallTextConfig).setOrigin(0.5);
+        let description = this.add.text(centerX, centerY, 'Jack has found the ballroom, it is filled with guests that he must avoid\n[SPACE] to Start\n[ESC] for Main Menu', smallTextConfig).setOrigin(0.5);
 
         // set up cursor keys
         cursors = this.input.keyboard.createCursorKeys();
