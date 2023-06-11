@@ -173,11 +173,11 @@ class Game1 extends Phaser.Scene {
 
             if (Phaser.Math.Distance.Between(this.Danny.x, this.Danny.y, this.twinsSpawnY, this.twinsSpawnX) <= tileSize * 5) {
                 this.spawnTwins();
-            }
-
-            this.Twins = this.add.sprite(this.twinsSpawnX, this.twinsSpawnY, 'Twins'); // create twins
-            this.TwinsGroup.add(this.Twins); // add twins to group
-            this.lockSpawns = false; // unlock spawns
+            } else {
+                this.Twins = this.add.sprite(this.twinsSpawnX, this.twinsSpawnY, 'Twins'); // create twins
+                this.TwinsGroup.add(this.Twins); // add twins to group
+                this.lockSpawns = false; // unlock spawns
+            }            
         }
     }
 
@@ -196,6 +196,7 @@ class Game1 extends Phaser.Scene {
             lineSpacing: 5,
             fixedWidth: 0
         }
+        this.add.text(centerX, centerY + textSpacer, '[SPACE] to Restart\n[ESC] for Main Menu', smallTextConfig).setOrigin(0.5).setDepth(101).setTint(0x000000);
         this.add.text(centerX, centerY + textSpacer, '[SPACE] to Restart\n[ESC] for Main Menu', smallTextConfig).setOrigin(0.5).setDepth(101);
         // if success is true, go to victory scene
         if (success) {
