@@ -31,10 +31,10 @@ class Game1 extends Phaser.Scene {
         this.cameras.main.fadeIn(1000, 0, 0, 0);
 
         // Set camera zoom to 2x
-        this.cameras.main.setZoom(2); // TEMP DISABLED FOR DEBUGGING
+        // this.cameras.main.setZoom(2); // TEMP DISABLED FOR DEBUGGING
 
         // Create "Black Overlay"
-        this.overlay = this.add.tileSprite(0, 0, 960, 640, 'BlackOverlay').setOrigin(0, 0).setDepth(100).setScrollFactor(0); // TEMP DISABLED FOR DEBUGGING
+        // this.overlay = this.add.tileSprite(0, 0, 960, 640, 'BlackOverlay').setOrigin(0, 0).setDepth(100).setScrollFactor(0); // TEMP DISABLED FOR DEBUGGING
 
         // Tilemap setup
         this.map = this.add.tilemap('tilemap1JSON');
@@ -167,17 +167,24 @@ class Game1 extends Phaser.Scene {
     spawnTwins() {
         if (!this.gameOverFlag) {
             this.TwinsGroup.clear(true, true); // destory existing twins on screen
+            this.prevSpawnpoint = 0;
             this.spawnpoint = Phaser.Math.Between(0, 7);
             this.twinsSpawnX = this.twinSpawns[this.spawnpoint][0];
             this.twinsSpawnY = this.twinSpawns[this.spawnpoint][1];
 
-            if (Phaser.Math.Distance.Between(this.Danny.x, this.Danny.y, this.twinsSpawnY, this.twinsSpawnX) <= tileSize * 5) {
-                this.spawnTwins();
-            } else {
-                this.Twins = this.add.sprite(this.twinsSpawnX, this.twinsSpawnY, 'Twins'); // create twins
-                this.TwinsGroup.add(this.Twins); // add twins to group
-                this.lockSpawns = false; // unlock spawns
-            }            
+            if (Phaser.Math.Distance.Between(this.Danny.x, this.Danny.y, this.twinsSpawnX, this.twinsSpawnY) <= tileSize * 5) {
+                console.log('spawn too close: finding new spawn')
+                this.prevSpawnpoint = this.spawnpoint;
+                while (this.spawnpoint == this.prevSpawnpoint) {
+                    this.spawnpoint = Phaser.Math.Between(0, 7);
+                }
+                this.twinsSpawnX = this.twinSpawns[this.spawnpoint][0];
+                this.twinsSpawnY = this.twinSpawns[this.spawnpoint][1];
+            }
+
+            this.Twins = this.add.sprite(this.twinsSpawnX, this.twinsSpawnY, 'Twins'); // create twins
+            this.TwinsGroup.add(this.Twins); // add twins to group
+            this.lockSpawns = false; // unlock spawns
         }
     }
 
@@ -196,8 +203,7 @@ class Game1 extends Phaser.Scene {
             lineSpacing: 5,
             fixedWidth: 0
         }
-        this.add.text(centerX, centerY + textSpacer, '[SPACE] to Restart\n[ESC] for Main Menu', smallTextConfig).setOrigin(0.5).setDepth(101).setTint(0x000000);
-        this.add.text(centerX, centerY + textSpacer, '[SPACE] to Restart\n[ESC] for Main Menu', smallTextConfig).setOrigin(0.5).setDepth(101);
+        
         // if success is true, go to victory scene
         if (success) {
             this.bgMusic.stop();
@@ -210,6 +216,9 @@ class Game1 extends Phaser.Scene {
             const ggImage = this.add.image(0, 0, 'gg').setOrigin(0.5).setScale(0.5).setDepth(100);
             ggImage.setPosition(this.Danny.x, this.Danny.y);
         }
+
+        this.add.text(this.Danny.x, this.Danny.y + textSpacer, '[SPACE] to Restart\n[ESC] for Main Menu', smallTextConfig).setOrigin(0.5).setDepth(101).setTint(0x000000);
+        this.add.text(this.Danny.x, this.Danny.y + textSpacer, '[SPACE] to Restart\n[ESC] for Main Menu', smallTextConfig).setOrigin(0.5).setDepth(101);
 
     }
 
