@@ -8,6 +8,10 @@ class Game1 extends Phaser.Scene {
         
         this.load.image('tileset1Image', 'tilesets/HallwaysBackGround.png');
         this.load.tilemapTiledJSON('tilemap1JSON', 'tilemaps/Game1.json');
+
+        this.load.image('gg', 'gameover.png');
+        this.load.image('success', 'overlook_sc.png');
+
         this.load.image('gg', 'overlookGameover.png');
         this.load.image('success', 'win.png');
         this.load.atlas('trikeDanny', 'characters/TricycleDanny.png', 'characters/TricycleDanny.json');
@@ -203,6 +207,25 @@ class Game1 extends Phaser.Scene {
         this.gameOverFlag = true;
         this.Danny.setVelocity(0,0).anims.pause(); // stop movement and pause animation
         console.log('GAME OVER');
+        let smallTextConfig = {
+            fontFamily: 'Times New Roman',
+            fontSize: '30px',
+            color: '#FFFFFF',
+            align: 'center',
+            padding: 5,
+            lineSpacing: 5,
+            fixedWidth: 0
+        }
+
+        let largeTextConfig = {
+            fontFamily: 'Times New Roman',
+            fontSize: '60px',
+            color: '#FFFFFF',
+            align: 'center',
+            padding: 5,
+            lineSpacing: 5,
+            fixedWidth: 0
+        }
         this.cameras.main.fadeIn(4000, 0, 0, 0);
         
         // if success is true, go to victory scene
@@ -214,9 +237,21 @@ class Game1 extends Phaser.Scene {
         } else {
             this.bgMusic.stop();
             this.sound.play('ggbgMusic', { volume: 0.65, loop: true });
-            const ggImage = this.add.image(0, 0, 'gg').setOrigin(0.5).setScale(0.5).setDepth(100);
-            ggImage.setPosition(this.Danny.x, this.Danny.y);
+            const ggImage = this.add.image(0, 0, 'gg').setOrigin(0).setDisplaySize(game.config.width, game.config.height).setDepth(100);
+            //ggImage.setPosition(this.Danny.x, this.Danny.y);
         }
+
+
+        this.add.text(this.Danny.x, this.Danny.y, 
+            'GAME OVER', 
+            largeTextConfig).setOrigin(0.5).setDepth(101).setTint(0x000000);
+        this.add.text(this.Danny.x, this.Danny.y + textSpacer, 
+            '[SPACE] to Restart\n[ESC] for Main Menu', 
+            smallTextConfig).setOrigin(0.5).setDepth(101).setTint(0x000000);
+        this.add.text(this.Danny.x, this.Danny.y + textSpacer, 
+            '[SPACE] to Restart\n[ESC] for Main Menu', 
+            smallTextConfig).setOrigin(0.5).setDepth(101);
+
     }
 
 }
