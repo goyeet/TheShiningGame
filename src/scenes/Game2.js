@@ -28,7 +28,7 @@ class Game2 extends Phaser.Scene {
         this.cameras.main.fadeIn(2000, 0, 0, 0);
 
         // Set camera zoom to 2x
-        this.cameras.main.setZoom(2);
+        //this.cameras.main.setZoom(2);
 
         this.cameras.main.setBackgroundColor('#202020');
 
@@ -41,7 +41,7 @@ class Game2 extends Phaser.Scene {
         terrainLayer.setCollisionByProperty({ collides: true });
         
         // Instantiate Jack
-        this.Jack = new Player(this, tileSize*26, tileSize*3, 'Jack').setScale(0.5).setOrigin(0,0);
+        this.Jack = new Jack(this, tileSize*26, tileSize*3, 'Jack').setScale(0.5).setOrigin(0,0);
 
         // Add collider between Jack and tilemap
         this.physics.add.collider(this.Jack, terrainLayer);
@@ -71,7 +71,7 @@ class Game2 extends Phaser.Scene {
         this.Delbert = new Enemy(this, tileSize*2, tileSize*6, 'Delbert').setOrigin(0,0).setScale(0.5);
         
         // Array of possible guests
-        const guestSkins = ['guest1', 'guest2', 'guest3']
+        const guestSkins = ['Guest1', 'Guest2', 'Guest3']
 
         // spawn in enemies on map
         map.findObject('objectLayer', obj => {
@@ -108,10 +108,8 @@ class Game2 extends Phaser.Scene {
         this.cameras.main.fadeIn(4000, 0, 0, 0);
         // display game over screen
         // TODO
-        this.bgMusic.stop();
-        this.sound.play('ggbgMusic', { volume: 0.65, loop: true });
-        const ggImage = this.add.image(0, 0, 'bathroom').setOrigin(0).setDisplaySize(game.config.width, game.config.height).setDepth(100);
-        this.add.text(this.Danny.x, this.Danny.y, 
+        this.add.image(0, 0, 'bathroom').setOrigin(0).setDisplaySize(game.config.width, game.config.height).setDepth(100);
+        this.add.text(game.config.width, game.config.height, 
             'WELCOME', 
             largeTextConfig).setOrigin(0.5).setDepth(101).setTint(0x000000);
         /*this.add.text(this.Danny.x, this.Danny.y + textSpacer, 
@@ -132,11 +130,13 @@ class Game2 extends Phaser.Scene {
         
 
         // Go to menu scene
-        if (this.gameOverFlag && Input.Keyboard.JustDown(keyESC)) {
+        if (this.gameOverFlag) {
+         if(Phaser.Input.Keyboard.JustDown(keyESC)) {
             this.scene.start('menuScene');
         }
+        return;
     }
 
     
-    
-}  
+    }
+}
