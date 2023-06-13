@@ -3,6 +3,11 @@ class Menu extends Phaser.Scene {
         super('menuScene');
     }
 
+    preload() {
+        this.load.path = './assets/';
+        
+        this.load.image('menuscreen', 'title_screen.png');
+    }
     create() {
         // fade in from black
         this.cameras.main.fadeIn(1000, 0, 0, 0);
@@ -18,7 +23,8 @@ class Menu extends Phaser.Scene {
         }
 
         // Title Text
-        this.add.text(centerX, centerY, 'The Shining Game\n\n[1] for Game 1\n[2] for Game 2 (In Progress)\n[3] for Game 3 (In Progress)\n[C] Credits', titleConfig).setOrigin(0.5);
+        this.add.image(0, 0, 'menuscreen').setOrigin(0).setDisplaySize(game.config.width, game.config.height).setDepth(100);
+        this.add.text(centerX, centerY, 'The Shining Game\n\n[1] for Game 1\n[2] for Game 2 (In Progress)\n[3] for Game 3 (In Progress)\n[C] Credits', titleConfig).setOrigin(0.5).setDepth(101);
 
         // set up cursor keys
         cursors = this.input.keyboard.createCursorKeys();
