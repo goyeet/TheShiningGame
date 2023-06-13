@@ -9,8 +9,11 @@ class Game2 extends Phaser.Scene {
         this.load.image('tileset2Image', 'tilesets/BallroomBackground.png');
         this.load.tilemapTiledJSON('tilemap2JSON', 'tilemaps/Game2.json');
 
-        this.load.image('Jack', 'characters/blackBox.png'); // Placeholder sprite
-        this.load.image('Delbert', 'characters/redBox.png'); // Placeholder sprite
+        this.load.image('Jack', 'characters/Jack.png');
+        this.load.image('Delbert', 'characters/Delbert.png');
+        this.load.image('Guest1', 'characters/Guest1.png');
+        this.load.image('Guest2', 'characters/Guest2.png');
+        this.load.image('Guest3', 'characters/Guest3.png');
 
     }
 
@@ -24,7 +27,7 @@ class Game2 extends Phaser.Scene {
         this.cameras.main.fadeIn(2000, 0, 0, 0);
 
         // Set camera zoom to 2x
-        // this.cameras.main.setZoom(2);
+        this.cameras.main.setZoom(2);
 
         this.cameras.main.setBackgroundColor('#202020');
 
@@ -64,9 +67,9 @@ class Game2 extends Phaser.Scene {
 
         this.physics.add.collider(this.enemyGroup, enemyCollisionLayer);
 
-        this.Delbert = new Enemy(this, tileSize*2, tileSize*6, 'Delbert').setOrigin(0,0);
+        this.Delbert = new Enemy(this, tileSize*2, tileSize*6, 'Delbert').setOrigin(0,0).setScale(0.5);
         
-        // Randomly pick guest skin
+        // TODO: Randomly pick guest skin
         // const guestSkins = ['guest1', 'guest2', 'guest3']
 
         // spawn in enemies on map
