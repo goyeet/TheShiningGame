@@ -30,7 +30,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
                 // move right
                 this.setVelocity(this.VELOCITY,0);            
             }
-            this.parentScene.time.delayedCall(1000, () => {
+            this.parentScene.time.delayedCall(500, () => {
                 this.chooseDirection = true;
             });
         }

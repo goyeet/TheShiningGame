@@ -41,7 +41,7 @@ class Game2Instructions extends Phaser.Scene {
         }
 
         if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
-            this.scene.start('game2');    
+            this.scene.start('game2');
         }
     }
 }

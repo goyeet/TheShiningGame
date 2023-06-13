@@ -8,7 +8,7 @@ class Game1 extends Phaser.Scene {
         
         this.load.image('tileset1Image', 'tilesets/HallwaysBackGround.png');
         this.load.tilemapTiledJSON('tilemap1JSON', 'tilemaps/Game1.json');
-        this.load.image('gg', 'overlook_gameover.png');
+        this.load.image('gg', 'overlookGameover.png');
         this.load.image('success', 'win.png');
         this.load.atlas('trikeDanny', 'characters/TricycleDanny.png', 'characters/TricycleDanny.json');
 
@@ -31,10 +31,10 @@ class Game1 extends Phaser.Scene {
         this.cameras.main.fadeIn(1000, 0, 0, 0);
 
         // Set camera zoom to 2x
-        // this.cameras.main.setZoom(2); // TEMP DISABLED FOR DEBUGGING
+        this.cameras.main.setZoom(2); // TEMP DISABLED FOR DEBUGGING
 
         // Create "Black Overlay"
-        // this.overlay = this.add.tileSprite(0, 0, 960, 640, 'BlackOverlay').setOrigin(0, 0).setDepth(100).setScrollFactor(0); // TEMP DISABLED FOR DEBUGGING
+        this.overlay = this.add.tileSprite(0, 0, 960, 640, 'BlackOverlay').setOrigin(0, 0).setDepth(50).setScrollFactor(0); // TEMP DISABLED FOR DEBUGGING
 
         // Tilemap setup
         this.map = this.add.tilemap('tilemap1JSON');
@@ -64,6 +64,18 @@ class Game1 extends Phaser.Scene {
         // Have camera follow Danny
         this.cameras.main.startFollow(this.Danny, true, 0.25, 0.25);
 
+        // Create hint text
+        let smallTextConfig = {
+            fontFamily: 'Times New Roman',
+            fontSize: '18px',
+            color: '#FFFFFF',
+            align: 'center',
+            padding: 5,
+            lineSpacing: 5,
+            fixedWidth: 0
+        }
+        this.add.text(game.config.width/2, this.Danny.y - tileSize*11, 'Find Room 273...', smallTextConfig).setOrigin(0.5).setDepth(55).setScrollFactor(0);
+
         // Set world bounds to map dimensions
         this.physics.world.bounds.setTo(0, 0, this.map.widthInPixels, this.map.heightInPixels);
 
@@ -92,7 +104,6 @@ class Game1 extends Phaser.Scene {
         // Looping Background Music
         this.bgMusic = this.sound.add('bgMusic', { volume: 0.65, loop: true });
         this.bgMusic.play();
-        
 
         // set up cursor keys
         keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -141,8 +152,6 @@ class Game1 extends Phaser.Scene {
                         for (const Twins of this.TwinsGroup.getChildren()) {
                             if (Twins.x == obj.x && Twins.y == obj.y) {
                                 console.log('encountered twins')
-                                // EMILY'S TODO: Twin SFX
-                                // CODE HERE
                                 this.gameOver(false);
                             }
                         }
@@ -194,15 +203,7 @@ class Game1 extends Phaser.Scene {
         this.gameOverFlag = true;
         this.Danny.setVelocity(0,0).anims.pause(); // stop movement and pause animation
         console.log('GAME OVER');
-        let smallTextConfig = {
-            fontFamily: 'Times New Roman',
-            fontSize: '18px',
-            color: '#FFFFFF',
-            align: 'center',
-            padding: 5,
-            lineSpacing: 5,
-            fixedWidth: 0
-        }
+        this.cameras.main.fadeIn(4000, 0, 0, 0);
         
         // if success is true, go to victory scene
         if (success) {
@@ -216,10 +217,6 @@ class Game1 extends Phaser.Scene {
             const ggImage = this.add.image(0, 0, 'gg').setOrigin(0.5).setScale(0.5).setDepth(100);
             ggImage.setPosition(this.Danny.x, this.Danny.y);
         }
-
-        this.add.text(this.Danny.x, this.Danny.y + textSpacer, '[SPACE] to Restart\n[ESC] for Main Menu', smallTextConfig).setOrigin(0.5).setDepth(101).setTint(0x000000);
-        this.add.text(this.Danny.x, this.Danny.y + textSpacer, '[SPACE] to Restart\n[ESC] for Main Menu', smallTextConfig).setOrigin(0.5).setDepth(101);
-
     }
 
 }
