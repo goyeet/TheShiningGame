@@ -232,23 +232,33 @@ class Game1 extends Phaser.Scene {
             this.sound.play('successbgMusic', { volume: 0.65, loop: true });
             const successImage = this.add.image(0, 0, 'success').setOrigin(0).setDisplaySize(game.config.width, game.config.height).setDepth(100);
             //successImage.setPosition(this.Danny.x, this.Danny.y);
+            this.add.text(this.Danny.x, this.Danny.y, 
+                'VICTORY', 
+                largeTextConfig).setOrigin(0.5).setDepth(101).setTint(0x000000);
+            this.add.text(this.Danny.x, this.Danny.y + textSpacer, 
+                '[SPACE] to Restart\n[ESC] for Main Menu', 
+                smallTextConfig).setOrigin(0.5).setDepth(101).setTint(0x000000);
+            this.add.text(this.Danny.x, this.Danny.y + textSpacer, 
+                '[SPACE] to Restart\n[ESC] for Main Menu', 
+                smallTextConfig).setOrigin(0.5).setDepth(101);
         } else {
             this.bgMusic.stop();
             this.sound.play('ggbgMusic', { volume: 0.65, loop: true });
             const ggImage = this.add.image(0, 0, 'gg').setOrigin(0).setDisplaySize(game.config.width, game.config.height).setDepth(100);
             //ggImage.setPosition(this.Danny.x, this.Danny.y);
+            this.add.text(this.Danny.x, this.Danny.y, 
+                'GAME OVER', 
+                largeTextConfig).setOrigin(0.5).setDepth(101).setTint(0x000000);
+            this.add.text(this.Danny.x, this.Danny.y + textSpacer, 
+                '[SPACE] to Restart\n[ESC] for Main Menu', 
+                smallTextConfig).setOrigin(0.5).setDepth(101).setTint(0x000000);
+            this.add.text(this.Danny.x, this.Danny.y + textSpacer, 
+                '[SPACE] to Restart\n[ESC] for Main Menu', 
+                smallTextConfig).setOrigin(0.5).setDepth(101);
         }
 
 
-        this.add.text(this.Danny.x, this.Danny.y, 
-            'GAME OVER', 
-            largeTextConfig).setOrigin(0.5).setDepth(101).setTint(0x000000);
-        this.add.text(this.Danny.x, this.Danny.y + textSpacer, 
-            '[SPACE] to Restart\n[ESC] for Main Menu', 
-            smallTextConfig).setOrigin(0.5).setDepth(101).setTint(0x000000);
-        this.add.text(this.Danny.x, this.Danny.y + textSpacer, 
-            '[SPACE] to Restart\n[ESC] for Main Menu', 
-            smallTextConfig).setOrigin(0.5).setDepth(101);
+
 
     }
 
