@@ -34,10 +34,10 @@ class Game2 extends Phaser.Scene {
         // Tilemap setup
         const map = this.add.tilemap('tilemap2JSON');
         const tileset = map.addTilesetImage('BallroomBackground', 'tileset2Image');
-        const terrainLayer = map.createLayer('collisionLayer', tileset, 0, 0);
         const enemyCollisionLayer = map.createLayer('enemyCollisionLayer', tileset, 0, 0);
-        terrainLayer.setCollisionByProperty({ collides: true });
+        const terrainLayer = map.createLayer('collisionLayer', tileset, 0, 0);
         enemyCollisionLayer.setCollisionByProperty({ collides: true });
+        terrainLayer.setCollisionByProperty({ collides: true });
         
         // Instantiate Jack
         this.Jack = new Player(this, tileSize*26, tileSize*3, 'Jack').setScale(0.5).setOrigin(0,0);

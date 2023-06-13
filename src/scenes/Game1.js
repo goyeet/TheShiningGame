@@ -76,7 +76,7 @@ class Game1 extends Phaser.Scene {
             lineSpacing: 5,
             fixedWidth: 0
         }
-        this.add.text(game.config.width/2, this.Danny.y - tileSize*11, 'Find Room 273...', smallTextConfig).setOrigin(0.5).setDepth(55).setScrollFactor(0);
+        this.add.text(game.config.width/2, this.Danny.y - tileSize*11, 'Find Room 237...', smallTextConfig).setOrigin(0.5).setDepth(55).setScrollFactor(0);
 
         // Set world bounds to map dimensions
         this.physics.world.bounds.setTo(0, 0, this.map.widthInPixels, this.map.heightInPixels);
@@ -135,9 +135,9 @@ class Game1 extends Phaser.Scene {
             // Proximity detection
             const points = this.map.findObject('objectLayer', obj => {
                 // if player reaches destination
-                if (obj.name.includes('273')) {
+                if (obj.name.includes('237')) {
                     if (Phaser.Math.Distance.Between(this.Danny.x, this.Danny.y, obj.x, obj.y) <= tileSize * 1) {
-                        console.log('273')
+                        console.log('237')
                         this.gameOver(true);
                     }
                 }
