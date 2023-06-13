@@ -120,4 +120,4 @@ class Game2 extends Phaser.Scene {
     }
     
     
-}
+}  
