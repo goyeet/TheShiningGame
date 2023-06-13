@@ -10,10 +10,8 @@ class Game1 extends Phaser.Scene {
         this.load.tilemapTiledJSON('tilemap1JSON', 'tilemaps/Game1.json');
 
         this.load.image('gg', 'gameover.png');
-        this.load.image('success', 'overlook_sc.png');
+        this.load.image('success', 'overlook_gg.png');
 
-        this.load.image('gg', 'overlookGameover.png');
-        this.load.image('success', 'win.png');
         this.load.atlas('trikeDanny', 'characters/TricycleDanny.png', 'characters/TricycleDanny.json');
 
         this.load.image('BlackOverlay', 'BlackOverlay.png'); // Placeholder sprite
@@ -232,8 +230,8 @@ class Game1 extends Phaser.Scene {
         if (success) {
             this.bgMusic.stop();
             this.sound.play('successbgMusic', { volume: 0.65, loop: true });
-            const successImage = this.add.image(0, 0, 'success').setOrigin(0.5).setScale(0.5).setDepth(100);
-            successImage.setPosition(this.Danny.x, this.Danny.y);
+            const successImage = this.add.image(0, 0, 'success').setOrigin(0).setDisplaySize(game.config.width, game.config.height).setDepth(100);
+            //successImage.setPosition(this.Danny.x, this.Danny.y);
         } else {
             this.bgMusic.stop();
             this.sound.play('ggbgMusic', { volume: 0.65, loop: true });
