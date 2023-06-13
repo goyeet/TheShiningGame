@@ -69,12 +69,14 @@ class Game2 extends Phaser.Scene {
 
         this.Delbert = new Enemy(this, tileSize*2, tileSize*6, 'Delbert').setOrigin(0,0).setScale(0.5);
         
-        // TODO: Randomly pick guest skin
-        // const guestSkins = ['guest1', 'guest2', 'guest3']
+        // Array of possible guests
+        const guestSkins = ['guest1', 'guest2', 'guest3']
 
         // spawn in enemies on map
         map.findObject('objectLayer', obj => {
-            this.guest = new Enemy(this, obj.x, obj.y, /* Change to random skin later **/'Jack').setScale(0.5);
+            // Randomly pick guest skin
+            var ranNum = Phaser.Math.Between(0, 2);
+            this.guest = new Enemy(this, obj.x, obj.y, guestSkins[ranNum]).setScale(0.5);
             this.enemyGroup.add(this.guest);
         });
 

@@ -5,8 +5,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
         scene.add.existing(this);   //add to existing scene
         scene.physics.add.existing(this);
         this.setCollideWorldBounds(true);
-        // this.setImmovable();
-        this.VELOCITY = 100;
+        this.VELOCITY = 75;
         this.chooseDirection = true;
     }
     
@@ -15,7 +14,6 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
 	    if (this.chooseDirection) {
             console.log('choosing direction')
             this.chooseDirection = false;
-            // this.setVelocity(0,0);
             let ranNum = Phaser.Math.Between(1,4);
             if (ranNum == 1) {
                 // move up
