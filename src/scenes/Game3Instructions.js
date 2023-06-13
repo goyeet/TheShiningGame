@@ -27,7 +27,7 @@ class Game3Instructions extends Phaser.Scene {
         }
 
         let gameTitle = this.add.text(centerX, centerY - textSpacer*2, 'Maze Chase', BigTextConfig).setOrigin(0.5);
-        let description = this.add.text(centerX, centerY, 'Game Description\n[SPACE] to Start\n[ESC] for Main Menu', smallTextConfig).setOrigin(0.5);
+        let description = this.add.text(centerX, centerY, 'Danny ran into the Overlook Maze to escape his crazy father Jack.\nHowever, he must escape and find the exit before he freezes to death.\nEscape the maze before time runs out...\n\nUse the arrow keys to move.\n\n[SPACE] to Start\n[ESC] for Main Menu', smallTextConfig).setOrigin(0.5);
 
         // set up cursor keys
         cursors = this.input.keyboard.createCursorKeys();

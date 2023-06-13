@@ -14,6 +14,7 @@ class Game2 extends Phaser.Scene {
         this.load.image('Guest1', 'characters/Guest1.png');
         this.load.image('Guest2', 'characters/Guest2.png');
         this.load.image('Guest3', 'characters/Guest3.png');
+        this.load.image('bathroom', 'g2_success.png');
 
     }
 
@@ -89,7 +90,7 @@ class Game2 extends Phaser.Scene {
         keyDOWN = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
     }
 
-    // logic that executes when enemy collides with regular guests
+    // logic that executes when enemy collides with regular guests (Go back to beginning)
     enemyCollision() {
         console.log('collided with guest')
         // fade in from black
@@ -99,6 +100,7 @@ class Game2 extends Phaser.Scene {
         this.Jack.setPosition(tileSize*26, tileSize*3); // bar's x, bar's y
     }
 
+    // When Player collides with Delbert
     gameOver() {
         console.log('collided with Delbert')
         this.gameOverFlag = true;
@@ -107,6 +109,18 @@ class Game2 extends Phaser.Scene {
         this.cameras.main.fadeIn(4000, 0, 0, 0);
         // display game over screen
         // TODO
+        this.bgMusic.stop();
+        this.sound.play('ggbgMusic', { volume: 0.65, loop: true });
+        const ggImage = this.add.image(0, 0, 'bathroom').setOrigin(0).setDisplaySize(game.config.width, game.config.height).setDepth(100);
+        this.add.text(this.Danny.x, this.Danny.y, 
+            'WELCOME', 
+            largeTextConfig).setOrigin(0.5).setDepth(101).setTint(0x000000);
+        this.add.text(this.Danny.x, this.Danny.y + textSpacer, 
+            '[SPACE] to Restart\n[ESC] for Main Menu', 
+            smallTextConfig).setOrigin(0.5).setDepth(101).setTint(0x000000);
+        this.add.text(this.Danny.x, this.Danny.y + textSpacer, 
+            '[SPACE] to Restart\n[ESC] for Main Menu', 
+            smallTextConfig).setOrigin(0.5).setDepth(101);
     }
 
     update() {
@@ -123,6 +137,7 @@ class Game2 extends Phaser.Scene {
             this.scene.start('menuScene');
         }
     }
+
     
     
 }  

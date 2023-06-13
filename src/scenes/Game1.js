@@ -9,8 +9,8 @@ class Game1 extends Phaser.Scene {
         this.load.image('tileset1Image', 'tilesets/HallwaysBackGround.png');
         this.load.tilemapTiledJSON('tilemap1JSON', 'tilemaps/Game1.json');
 
-        this.load.image('gg', 'gameover.png');
-        this.load.image('success', 'overlook_gg.png');
+        this.load.image('gg', 'g1_gameover.png');
+        this.load.image('success', 'g1_success.png');
 
         this.load.atlas('trikeDanny', 'characters/TricycleDanny.png', 'characters/TricycleDanny.json');
 

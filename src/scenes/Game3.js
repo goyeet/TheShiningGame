@@ -9,7 +9,9 @@ class Game3 extends Phaser.Scene {
         this.load.image('tileset3Image', 'tilesets/Game3Tileset.png');
         this.load.tilemapTiledJSON('tilemap3JSON', 'tilemaps/Game3.json');
 
-        this.load.image('Danny', 'characters/blackBox.png'); // Placeholder sprite
+        this.load.atlas('runningDanny', 'characters/RunningDanny.png', 'characters/RunningDanny.json');
+
+        // this.load.image('Danny', 'characters/blackBox.png'); // Placeholder sprite
         this.load.image('snowflake', 'snowflake.png');
     }
 
@@ -45,9 +47,21 @@ class Game3 extends Phaser.Scene {
             blendMode: 'ADD',
         });
 
+        // define animation
+        this.anims.create({
+            key: 'run',
+            frames: this.anims.generateFrameNames('runningDanny', {
+                prefix: 'RunningDanny ',
+                start: 0,
+                end: 12,
+                suffix: '.aseprite'
+            }),
+            frameRate: 15,
+            repeat: -1
+        });
         
         // Instantiate Danny
-        this.Danny = new Player(this, map.widthInPixels/2, map.heightInPixels/2, 'Danny').setScale(0.5);
+        this.Danny = new Player(this, map.widthInPixels/2, map.heightInPixels/2, 'runningDanny').setScale(0.5);
 
         // Add collider between Danny and tilemap
         this.physics.add.collider(this.Danny, terrainLayer);
