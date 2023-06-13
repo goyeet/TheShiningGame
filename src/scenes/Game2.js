@@ -95,7 +95,6 @@ class Game2 extends Phaser.Scene {
         console.log('collided with guest')
         // fade in from black
         this.cameras.main.fadeIn(2000, 0, 0, 0);
-        // TODO
         // spawn Jack back at the bar
         this.Jack.setPosition(tileSize*26, tileSize*3); // bar's x, bar's y
     }
@@ -115,12 +114,12 @@ class Game2 extends Phaser.Scene {
         this.add.text(this.Danny.x, this.Danny.y, 
             'WELCOME', 
             largeTextConfig).setOrigin(0.5).setDepth(101).setTint(0x000000);
-        this.add.text(this.Danny.x, this.Danny.y + textSpacer, 
+        /*this.add.text(this.Danny.x, this.Danny.y + textSpacer, 
             '[SPACE] to Restart\n[ESC] for Main Menu', 
             smallTextConfig).setOrigin(0.5).setDepth(101).setTint(0x000000);
         this.add.text(this.Danny.x, this.Danny.y + textSpacer, 
             '[SPACE] to Restart\n[ESC] for Main Menu', 
-            smallTextConfig).setOrigin(0.5).setDepth(101);
+            smallTextConfig).setOrigin(0.5).setDepth(101);*/
     }
 
     update() {
@@ -133,7 +132,7 @@ class Game2 extends Phaser.Scene {
         
 
         // Go to menu scene
-        if (Phaser.Input.Keyboard.JustDown(keyESC)) {
+        if (this.gameOverFlag && Input.Keyboard.JustDown(keyESC)) {
             this.scene.start('menuScene');
         }
     }
