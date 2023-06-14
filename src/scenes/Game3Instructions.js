@@ -44,6 +44,7 @@ class Game3Instructions extends Phaser.Scene {
         }
 
         if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
+            bgMusicActive = false;
             this.game.sound.stopAll();
             this.scene.start('game3');    
         }

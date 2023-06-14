@@ -45,3 +45,4 @@ let bgMusicPlaying = false;
 let parentScene = 'game1';
 let success = false;
 let w = game.config.width;
+let bgMusicActive = false;

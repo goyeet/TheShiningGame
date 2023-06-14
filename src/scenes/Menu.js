@@ -21,8 +21,11 @@ class Menu extends Phaser.Scene {
             padding: 5,
             fixedWidth: 0
         }
-
-        this.sound.play('menuMusic', { volume: 0.4, loop: true });
+        
+        if (!bgMusicActive) {
+            bgMusicActive = true;
+            this.sound.play('menuMusic', { volume: 0.4, loop: true });
+        }
         
         // Title background img
         this.add.image(centerX, centerY, 'title').setOrigin(0.5);
