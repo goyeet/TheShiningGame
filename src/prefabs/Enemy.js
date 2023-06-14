@@ -12,7 +12,7 @@ class Enemy extends Phaser.Physics.Arcade.Sprite {
     update() {
         // Chooses a direction to move in and moves in that direction every 2 seconds
 	    if (this.chooseDirection) {
-            console.log('choosing direction')
+            // console.log('choosing direction')
             this.chooseDirection = false;
             let ranNum = Phaser.Math.Between(1,4);
             if (ranNum == 1) {

@@ -14,7 +14,8 @@ class Game2 extends Phaser.Scene {
         this.load.image('Guest1', 'characters/Guest1.png');
         this.load.image('Guest2', 'characters/Guest2.png');
         this.load.image('Guest3', 'characters/Guest3.png');
-        this.load.image('bathroom', 'g2_success.png');
+
+        this.load.audio('game2bgmusic', 'audio/game2_bgm.mp3');
 
     }
 
@@ -28,9 +29,9 @@ class Game2 extends Phaser.Scene {
         this.cameras.main.fadeIn(2000, 0, 0, 0);
 
         // Set camera zoom to 2x
-        //this.cameras.main.setZoom(2);
+        this.cameras.main.setZoom(2);
 
-        this.cameras.main.setBackgroundColor('#202020');
+        this.cameras.main.setBackgroundColor('#000000');
 
         // Tilemap setup
         const map = this.add.tilemap('tilemap2JSON');
@@ -48,17 +49,14 @@ class Game2 extends Phaser.Scene {
 
         // Have camera follow Jack
         this.cameras.main.startFollow(this.Jack, true, 0.25, 0.25);
-        this.cameras.main.setBounds(0, 0, game.config.width, game.config.height);
+        this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
         // Set world bounds to map dimensions
         this.physics.world.bounds.setTo(0, 0, map.widthInPixels, map.heightInPixels);
 
-        // start bg music
-        /* this.bgMusic = this.sound.add('bgMusic', { volume: 0.65, loop: true });
-        if (bgMusicPlaying === false) {
-            this.bgMusic.play();
-            bgMusicPlaying = true;
-        } */
+        // Looping Background Music
+        this.bgMusic = this.sound.add('game2bgmusic', { volume: 1, loop: true });
+        this.bgMusic.play();
 
         this.enemyGroup = this.physics.add.group({
             immovable: true,
@@ -68,7 +66,7 @@ class Game2 extends Phaser.Scene {
 
         this.physics.add.collider(this.enemyGroup, enemyCollisionLayer);
 
-        this.Delbert = new Enemy(this, tileSize*2, tileSize*6, 'Delbert').setOrigin(0,0).setScale(0.5);
+        this.Delbert = new Enemy(this, tileSize*2, tileSize*6, 'Delbert').setOrigin(0.5).setScale(0.5);
         
         // Array of possible guests
         const guestSkins = ['Guest1', 'Guest2', 'Guest3']
@@ -94,7 +92,7 @@ class Game2 extends Phaser.Scene {
     enemyCollision() {
         console.log('collided with guest')
         // fade in from black
-        this.cameras.main.fadeIn(2000, 0, 0, 0);
+        this.cameras.main.fadeIn(1000, 0, 0, 0);
         // spawn Jack back at the bar
         this.Jack.setPosition(tileSize*26, tileSize*3); // bar's x, bar's y
     }
@@ -102,40 +100,19 @@ class Game2 extends Phaser.Scene {
     // When Player collides with Delbert
     gameOver() {
         console.log('collided with Delbert')
-        this.gameOverFlag = true;
-        this.Jack.setVelocity(0,0);
-        // fade in from black
-        this.cameras.main.fadeIn(4000, 0, 0, 0);
-        // display game over screen
-        // TODO
-        this.add.image(0, 0, 'bathroom').setOrigin(0).setDisplaySize(game.config.width, game.config.height).setDepth(100);
-        this.add.text(game.config.width, game.config.height, 
-            'WELCOME', 
-            largeTextConfig).setOrigin(0.5).setDepth(101).setTint(0x000000);
-        /*this.add.text(this.Danny.x, this.Danny.y + textSpacer, 
-            '[SPACE] to Restart\n[ESC] for Main Menu', 
-            smallTextConfig).setOrigin(0.5).setDepth(101).setTint(0x000000);
-        this.add.text(this.Danny.x, this.Danny.y + textSpacer, 
-            '[SPACE] to Restart\n[ESC] for Main Menu', 
-            smallTextConfig).setOrigin(0.5).setDepth(101);*/
+        this.gameOverFlag = true;        
+        parentScene = 'game2';
+        success = true;
+        this.bgMusic.stop();
+        this.scene.start('gameOver');
     }
 
     update() {
         if (!this.gameOverFlag) {
             this.Jack.update();
-
             this.physics.world.overlap(this.Jack, this.enemyGroup, this.enemyCollision, null, this);
             this.physics.world.overlap(this.Jack, this.Delbert, this.gameOver, null, this); // when player overlaps with delbert
         }
-        
-
-        // Go to menu scene
-        if (this.gameOverFlag) {
-         if(Phaser.Input.Keyboard.JustDown(keyESC)) {
-            this.scene.start('menuScene');
-        }
-        return;
-    }
 
     
     }

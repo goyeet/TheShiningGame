@@ -7,6 +7,9 @@ class Game1Instructions extends Phaser.Scene {
         // fade in from black
         this.cameras.main.fadeIn(1000, 0, 0, 0);
 
+        // background img
+        this.add.image(centerX, centerY, 'g1_bg').setOrigin(0.5);
+
         let BigTextConfig = {
             fontFamily: 'Times New Roman',
             fontSize: '48px',
@@ -37,10 +40,11 @@ class Game1Instructions extends Phaser.Scene {
 
     update() {
         if (Phaser.Input.Keyboard.JustDown(keyESC)) {
-            this.scene.start('menuScene');    
+            this.scene.start('menuScene');
         }
 
         if (Phaser.Input.Keyboard.JustDown(keySPACE)) {
+            this.game.sound.stopAll();
             this.scene.start('game1');    
         }
     }

@@ -5,31 +5,31 @@ class Menu extends Phaser.Scene {
 
     preload() {
         this.load.path = './assets/';
-        
-        this.load.image('menuscreen', 'title_screen.png');
     }
+
     create() {
+
         // fade in from black
         this.cameras.main.fadeIn(1000, 0, 0, 0);
 
         // add title screen text
         let titleConfig = {
-            fontFamily: 'Times New Roman',
-            fontSize: '48px',
-            color: '#FFFFFF',
-            align: 'center',
+            fontFamily: 'Impact',
+            fontSize: '42px',
+            color: '#000000',
+            align: 'left',
             padding: 5,
             fixedWidth: 0
         }
 
-        // Title Text
-        this.add.image(0, 0, 'menuscreen').setOrigin(0).setDisplaySize(game.config.width, game.config.height).setDepth(100);
-        this.add.text(centerX, centerY, 'The Shining Game\n\n[1] for Game 1\n[2] for Game 2 (In Progress)\n[3] for Game 3 (In Progress)\n[C] Credits', titleConfig).setOrigin(0.5).setDepth(101);
+        this.sound.play('menuMusic', { volume: 0.4, loop: true });
+        
+        // Title background img
+        this.add.image(centerX, centerY, 'title').setOrigin(0.5);
 
-        // set up cursor keys
-        cursors = this.input.keyboard.createCursorKeys();
-        keySPACE = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-        keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        // Title Text
+        this.add.text(game.config.width - tileSize, game.config.height - tileSize, '[1] Game 1\n[2] Game 2\n[3] Game 3\n[C] Credits', titleConfig).setOrigin(1);
+
         key1 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE);
         key2 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TWO);
         key3 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.THREE);

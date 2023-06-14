@@ -28,10 +28,7 @@ class Credits extends Phaser.Scene {
         }
 
         let creditsHeader = this.add.text(centerX, centerY - textSpacer*2, 'Credits', creditsConfig).setOrigin(0.5);
-        let credits = this.add.text(centerX, centerY, 'Programmers: Gordon Yee and Emily Gavilanes\nArtists: Gordon Yee and Emily Gavilanes\nDesigners: Gordon Yee and Emily Gavilanes\nSFX: \nMusic: ', smallTextConfig).setOrigin(0.5);
-       
-        // creditsConfig.fontSize = '36px';
-        // this.titleText = this.add.text(textSpacer * 1.5, centerY + textSpacer, 'Menu', creditsConfig).setOrigin(0.5);
+        let credits = this.add.text(centerX, centerY, 'Programmers: Gordon Yee and Emily Gavilanes\nArtists: Gordon Yee and Emily Gavilanes\nDesigners: Gordon Yee and Emily Gavilanes\nScreenshots: The Shining Movie\nMusic: https://pixabay.com/music/\n\n[ESC] for Main Menu', smallTextConfig).setOrigin(0.5);
 
         // set up cursor keys
         cursors = this.input.keyboard.createCursorKeys();

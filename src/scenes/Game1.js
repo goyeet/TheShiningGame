@@ -9,16 +9,13 @@ class Game1 extends Phaser.Scene {
         this.load.image('tileset1Image', 'tilesets/HallwaysBackGround.png');
         this.load.tilemapTiledJSON('tilemap1JSON', 'tilemaps/Game1.json');
 
-        this.load.image('gg', 'g1_gameover.png');
-        this.load.image('success', 'g1_success.png');
-
         this.load.atlas('trikeDanny', 'characters/TricycleDanny.png', 'characters/TricycleDanny.json');
 
-        this.load.image('BlackOverlay', 'BlackOverlay.png'); // Placeholder sprite
-        this.load.image('Twins', 'characters/twins.png'); // Placeholder sprite
-        this.load.audio('bgMusic', 'game1_bgm.mp3');
-        this.load.audio('ggbgMusic', 'game_over_bgm.mp3');
-        this.load.audio('successbgMusic', 'success_bgm.mp3');
+        this.load.image('BlackOverlay', 'BlackOverlay.png');
+        this.load.image('Twins', 'characters/twins.png');
+
+        this.load.audio('bgMusic', 'audio/game1_bgm.mp3');
+        
     }
 
     create() {
@@ -104,7 +101,7 @@ class Game1 extends Phaser.Scene {
         this.spawnTwins();
 
         // Looping Background Music
-        this.bgMusic = this.sound.add('bgMusic', { volume: 0.65, loop: true });
+        this.bgMusic = this.sound.add('bgMusic', { volume: 0.8, loop: true });
         this.bgMusic.play();
 
         // set up cursor keys
@@ -138,14 +135,20 @@ class Game1 extends Phaser.Scene {
                 if (obj.name.includes('237')) {
                     if (Phaser.Math.Distance.Between(this.Danny.x, this.Danny.y, obj.x, obj.y) <= tileSize * 1) {
                         console.log('237')
-                        this.gameOver(true);
+                        success = true;
+                        parentScene = 'game1';
+                        this.bgMusic.stop();
+                        this.scene.start('gameOver');
                     }
                 }
                 // if player runs into elevator
                 else if (obj.name.includes('Elevator')) {
                     if (Phaser.Math.Distance.Between(this.Danny.x, this.Danny.y, obj.x, obj.y) <= tileSize * 0.5) {
                         console.log('Elevator')
-                        this.gameOver(false);
+                        success = false;
+                        parentScene = 'game1';
+                        this.bgMusic.stop();
+                        this.scene.start('gameOver');
                     }
                 }
                 // if player runs into twins
@@ -154,23 +157,15 @@ class Game1 extends Phaser.Scene {
                         for (const Twins of this.TwinsGroup.getChildren()) {
                             if (Twins.x == obj.x && Twins.y == obj.y) {
                                 console.log('encountered twins')
-                                this.gameOver(false);
+                                success = false;
+                                parentScene = 'game1';
+                                this.bgMusic.stop();
+                                this.scene.start('gameOver');
                             }
                         }
                     }
                 }
             });
-        }
-        
-        // Go to menu scene
-        if (this.gameOverFlag && Phaser.Input.Keyboard.JustDown(keyESC)) {
-            this.scene.start('menuScene');
-        }
-
-        // Restart Scene
-        if (this.gameOverFlag && Phaser.Input.Keyboard.JustDown(keySPACE)) {
-            this.game.sound.stopAll();
-            this.scene.restart();
         }
     }
 
@@ -198,68 +193,4 @@ class Game1 extends Phaser.Scene {
             this.lockSpawns = false; // unlock spawns
         }
     }
-
-    // Game Over Logic
-    // Parameter: success tracks if player succeeded or failed the game (victory vs. failure)
-    gameOver(success) {
-        this.gameOverFlag = true;
-        this.Danny.setVelocity(0,0).anims.pause(); // stop movement and pause animation
-        console.log('GAME OVER');
-        let smallTextConfig = {
-            fontFamily: 'Times New Roman',
-            fontSize: '30px',
-            color: '#FFFFFF',
-            align: 'center',
-            padding: 5,
-            lineSpacing: 5,
-            fixedWidth: 0
-        }
-
-        let largeTextConfig = {
-            fontFamily: 'Times New Roman',
-            fontSize: '60px',
-            color: '#FFFFFF',
-            align: 'center',
-            padding: 5,
-            lineSpacing: 5,
-            fixedWidth: 0
-        }
-        this.cameras.main.fadeIn(4000, 0, 0, 0);
-        
-        // if success is true, go to victory scene
-        if (success) {
-            this.bgMusic.stop();
-            this.sound.play('successbgMusic', { volume: 0.65, loop: true });
-            const successImage = this.add.image(0, 0, 'success').setOrigin(0).setDisplaySize(game.config.width, game.config.height).setDepth(100);
-            //successImage.setPosition(this.Danny.x, this.Danny.y);
-            this.add.text(this.Danny.x, this.Danny.y, 
-                'VICTORY', 
-                largeTextConfig).setOrigin(0.5).setDepth(101).setTint(0x000000);
-            this.add.text(this.Danny.x, this.Danny.y + textSpacer, 
-                '[SPACE] to Restart\n[ESC] for Main Menu', 
-                smallTextConfig).setOrigin(0.5).setDepth(101).setTint(0x000000);
-            this.add.text(this.Danny.x, this.Danny.y + textSpacer, 
-                '[SPACE] to Restart\n[ESC] for Main Menu', 
-                smallTextConfig).setOrigin(0.5).setDepth(101);
-        } else {
-            this.bgMusic.stop();
-            this.sound.play('ggbgMusic', { volume: 0.65, loop: true });
-            const ggImage = this.add.image(0, 0, 'gg').setOrigin(0).setDisplaySize(game.config.width, game.config.height).setDepth(100);
-            //ggImage.setPosition(this.Danny.x, this.Danny.y);
-            this.add.text(this.Danny.x, this.Danny.y, 
-                'GAME OVER', 
-                largeTextConfig).setOrigin(0.5).setDepth(101).setTint(0x000000);
-            this.add.text(this.Danny.x, this.Danny.y + textSpacer, 
-                '[SPACE] to Restart\n[ESC] for Main Menu', 
-                smallTextConfig).setOrigin(0.5).setDepth(101).setTint(0x000000);
-            this.add.text(this.Danny.x, this.Danny.y + textSpacer, 
-                '[SPACE] to Restart\n[ESC] for Main Menu', 
-                smallTextConfig).setOrigin(0.5).setDepth(101);
-        }
-
-
-
-
-    }
-
 }
